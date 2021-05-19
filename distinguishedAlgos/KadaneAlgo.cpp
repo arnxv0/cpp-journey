@@ -43,9 +43,6 @@ void circularSubArray(int* arr, int size) {
 
 }
 
-#include<iostream>
-using namespace std;
-
 int main() {
     int size;
     cin >> size;
