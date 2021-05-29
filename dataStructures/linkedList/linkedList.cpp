@@ -70,6 +70,83 @@ bool search(node* head, int key) {
     return false;
 }
 
+void deleteNode(node** pHead, int key) {
+    node* head = *pHead;
+
+    if (head == NULL) {
+        return;
+    } else if (head->data == key) {
+        node* temp = *pHead;
+        *pHead = temp->next;
+        delete temp;
+        return;
+    }
+
+    while (head->next != NULL) {
+        if (head->next->data == key) {
+            break;
+        }
+
+        head = head->next;
+    }
+
+    if (head->next != NULL) {
+        node* temp = head->next;
+        head->next = head->next->next;
+        delete temp;
+    }
+}
+
+void reverseList(node** pHead) {
+    node* head = *pHead;
+
+    if (head == NULL || head->next == NULL) {
+        return;
+    }
+
+    head = head->next;
+    node* prev = NULL;
+    node* curr = *pHead;
+
+    while (head != NULL) {
+        curr->next = prev;
+        prev = curr;
+        curr = head;
+        head = head->next;
+    }
+
+    curr->next = prev;
+    *pHead = curr;
+
+}
+
+void reverseKNodes(node** pHead, int k) {
+    node* head = *pHead;
+
+    if (head == NULL || head->next == NULL) {
+        return;
+    }
+
+    head = head->next;
+    node* prev = NULL;
+    node* curr = *pHead;
+
+    while (head != NULL && k > 1) {
+        curr->next = prev;
+        prev = curr;
+        curr = head;
+        head = head->next;
+        k--;
+    }
+
+    node* x = *pHead;
+    x->next = head;
+    curr->next = prev;
+    *pHead = curr;
+
+}
+
+
 int main() {
 
     node* head = NULL;
@@ -77,10 +154,14 @@ int main() {
     insertAtTail(&head, 1);
     insertAtTail(&head, 2);
     insertAtTail(&head, 3);
-    insertAtHead(&head, 4);
+    insertAtTail(&head, 4);
+    insertAtTail(&head, 5);
+    insertAtHead(&head, 0);
 
     display(head);
-    cout << search(head, 2) << endl;
+    
+    reverseKNodes(&head, 4);
+
     display(head);
 
     return 0;
