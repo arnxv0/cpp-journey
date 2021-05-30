@@ -146,6 +146,44 @@ void reverseKNodes(node** pHead, int k) {
 
 }
 
+bool detectCycleFloyed(node* head) {
+    node* slow = head;
+
+    while (head->next != NULL) {
+        if (slow == head) {
+            return true;
+        }
+
+        head = head->next->next;
+        slow = slow->next;
+    }
+
+    return false;
+}
+
+// Proof https://www.youtube.com/watch?v=Fj1ywT9ETQk&list=PLfqMhTWNBTe0b2nM6JHVCnAkhQRGiZMSJ&index=62
+// 10:00
+void removeCycle(node* head) {
+    node* slow = head;
+    node* fast = head;
+
+    while (fast->next != NULL) {
+        if (slow == fast) {
+
+            fast = head;
+            while (fast->next != slow->next) {
+                fast = fast->next;
+                slow = slow->next;
+            }
+
+            slow->next = NULL;
+            return;
+        }
+
+        fast = fast->next->next;
+        slow = slow->next;
+    }
+}
 
 int main() {
 
