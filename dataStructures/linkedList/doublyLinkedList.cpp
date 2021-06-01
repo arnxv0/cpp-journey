@@ -84,6 +84,7 @@ void display(node* head) {
 
     if (head == NULL) {
         std::cout << "Empty List" << std::endl;
+        return;
     }
 
     while (head != NULL) {
@@ -94,7 +95,6 @@ void display(node* head) {
     std::cout << std::endl;
 
 }
-
 
 int main() {
 

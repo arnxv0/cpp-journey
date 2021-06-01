@@ -185,6 +185,42 @@ void removeCycle(node* head) {
     }
 }
 
+int getListLength(node* head) {
+    int length = 0;
+    while (head != NULL) {
+        length++;
+        head = head->next;
+    }
+
+    return length;
+}
+
+void kAppend(node** pHead, int k) {
+    node* head = *pHead;
+    int firstN = getListLength(head) - k - 1;
+    cout << k << endl;
+    if (firstN < 0) {
+        return;
+    } else {
+        while (firstN != 0) {
+            head = head->next;
+            firstN--;
+        }
+
+        node* temp = head;
+
+        while (head->next != NULL) {
+            head = head->next;
+        }
+
+        head->next = *pHead;
+        *pHead = temp->next;
+        temp->next = NULL;
+
+    }
+}
+
+
 int main() {
 
     node* head = NULL;
@@ -197,9 +233,7 @@ int main() {
     insertAtHead(&head, 0);
 
     display(head);
-    
-    reverseKNodes(&head, 4);
-
+    kAppend(&head, 5);
     display(head);
 
     return 0;
